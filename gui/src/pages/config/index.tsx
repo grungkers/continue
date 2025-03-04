@@ -121,7 +121,7 @@ function ConfigPage() {
   const disableSessionTitles = config.disableSessionTitles ?? false;
   const readResponseTTS = config.experimental?.readResponseTTS ?? false;
 
-  const allowAnonymousTelemetry = config.allowAnonymousTelemetry ?? true;
+  const allowAnonymousTelemetry = config.allowAnonymousTelemetry ?? false;
   const disableIndexing = config.disableIndexing ?? false;
 
   const useAutocompleteCache = config.tabAutocompleteOptions?.useCache ?? false;
@@ -407,15 +407,6 @@ function ConfigPage() {
                       })
                     }
                     text="Display Raw Markdown"
-                  />
-                  <ToggleSwitch
-                    isToggled={allowAnonymousTelemetry}
-                    onToggle={() =>
-                      handleUpdate({
-                        allowAnonymousTelemetry: !allowAnonymousTelemetry,
-                      })
-                    }
-                    text="Allow Anonymous Telemetry"
                   />
                   <ToggleSwitch
                     isToggled={disableIndexing}
