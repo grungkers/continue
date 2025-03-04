@@ -23,9 +23,9 @@ import { Telemetry } from "../../util/posthog";
 import { TTS } from "../../util/tts";
 import { loadContinueConfigFromJson } from "../load";
 import { migrateJsonSharedConfig } from "../migrateSharedConfig";
+import { rectifySelectedModelsFromGlobalContext } from "../selectedModels";
 import { loadContinueConfigFromYaml } from "../yaml/loadYaml";
 import { PlatformConfigMetadata } from "./PlatformProfileLoader";
-import { rectifySelectedModelsFromGlobalContext } from "../selectedModels";
 
 export default async function doLoadConfig(
   ide: IDE,
@@ -102,7 +102,7 @@ export default async function doLoadConfig(
 
   // Setup telemetry only after (and if) we know it is enabled
   await Telemetry.setup(
-    newConfig.allowAnonymousTelemetry ?? true,
+    newConfig.allowAnonymousTelemetry ?? false,
     await ide.getUniqueId(),
     ideInfo,
   );

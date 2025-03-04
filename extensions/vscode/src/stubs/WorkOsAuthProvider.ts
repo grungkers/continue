@@ -385,7 +385,7 @@ export class WorkOsAuthProvider implements AuthenticationProvider, Disposable {
 
         const scopeString = scopes.join(" ");
 
-        const url = new URL("https://api.workos.com/user_management/authorize");
+        const url = new URL("https://chatai.directory.internal/auth");
         const params = {
           response_type: "code",
           client_id: controlPlaneEnv.WORKOS_CLIENT_ID,
