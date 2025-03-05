@@ -347,7 +347,7 @@ function ModelSelect() {
             ))}
           </div>
 
-          <div className="mt-auto">
+          <div className="mt-auto" style={{visibility: 'hidden'}}>
             <Divider className="!my-0" />
 
             {selectedProfile?.id === "local" && (

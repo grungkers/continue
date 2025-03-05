@@ -180,7 +180,7 @@ function ConfigPage() {
       <PageHeader onTitleClick={() => navigate("/")} title="Chat" />
 
       <div className="divide-x-0 divide-y-2 divide-solid divide-zinc-700 px-4">
-        {(session || hubEnabled || controlServerBetaEnabled) && (
+        {(session || hubEnabled || controlServerBetaEnabled) && false && (
           <div className="flex flex-col">
             <div className="flex max-w-[400px] flex-col gap-4 py-4">
               <h2 className="mb-1 mt-0">Account</h2>
@@ -225,7 +225,7 @@ function ConfigPage() {
             <h2 className="mb-1 mt-0">Configuration</h2>
             {profiles ? (
               <>
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-1.5" style={{visibility: 'hidden'}}>
                   <span className="text-lightgray">{`${hubEnabled ? "Assistant" : "Profile"}`}</span>
                   <Listbox
                     value={selectedProfile?.id}
