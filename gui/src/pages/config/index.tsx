@@ -179,9 +179,9 @@ function ConfigPage() {
     <div className="overflow-y-scroll">
       <PageHeader onTitleClick={() => navigate("/")} title="Chat" />
 
-      <div className="divide-x-0 divide-y-2 divide-solid divide-zinc-700 px-4" style={{visibility: 'hidden'}}>
+      <div className="divide-x-0 divide-y-2 divide-solid divide-zinc-700 px-4">
         {(session || hubEnabled || controlServerBetaEnabled) && (
-          <div className="flex flex-col">
+          <div className="flex flex-col" style={{visibility: 'hidden'}}>
             <div className="flex max-w-[400px] flex-col gap-4 py-4">
               <h2 className="mb-1 mt-0">Account</h2>
               {!session ? (

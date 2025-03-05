@@ -85,7 +85,7 @@ export function AssistantSelectOptions({
         })}
       </div>
 
-      <div className="mt-auto w-full">
+      <div className="mt-auto w-full" style={{visibility: 'hidden'}}>
         <OptionDiv
           key={"new-assistant"}
           onClick={session ? onNewAssistant : () => login(false)}
