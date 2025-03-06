@@ -49,7 +49,7 @@ console.log("[info] Using target: ", target);
 
 const exe = os === "win32" ? ".exe" : "";
 
-const isInGitHubAction = true;
+const isInGitHubAction = false;
 
 const isArmTarget =
   target === "darwin-arm64" ||
