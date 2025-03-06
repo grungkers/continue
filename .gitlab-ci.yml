@@ -39,7 +39,7 @@ deploy:
   script:
     - echo "Deploying VSIX to JFrog..."
     - /usr/local/bin/jf config show
-    - /usr/local/bin/jf rt u "extensions/vscode/*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
+    - /usr/local/bin/jf rt u "extensions/vscode/*.vsix" "tne-registry/continue" --url="$JFROG_URL" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
   artifacts:
     paths:
       - extensions/vscode/*.vsix
