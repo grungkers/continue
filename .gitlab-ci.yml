@@ -46,6 +46,5 @@ deploy:
   script:
     - echo "Deploying VSIX to JFrog..."
     - jf c add --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
-    - jf c add --artifactory-url="$JFROG_URL"
     - jf config show
     - jf rt u "extensions/vscode/*.vsix" tne-registry/continue --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
