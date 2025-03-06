@@ -27,7 +27,10 @@ build:
     - npm i vectordb --prefix core
     - cd extensions/vscode && npm run prepackage -- --target $TARGET
     - npm i -f --prefix extensions/vscode esbuild
-    - npx vsce package --no-dependencies --target $TARGET
+    - npx vsce package --no-dependencies --target $TARGET  
+  artifacts:
+    paths:
+      - extensions/vscode/*.vsix
 
 deploy:
   stage: deploy
@@ -44,6 +47,3 @@ deploy:
     - ./jf c add --artifactory-url="$JFROG_URL/tne-registry"
     - ./jf config show
     - ./jf rt u "extensions/vscode/*.vsix" tne-registry/continue --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
-  artifacts:
-    paths:
-      - extensions/vscode/*.vsix
