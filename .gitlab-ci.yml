@@ -35,10 +35,10 @@ deploy:
   before_script:
     - apk add --no-cache curl bash
     - curl -fL https://install-cli.jfrog.io | sh
-    - ./jf config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
+    - /usr/local/bin/jf config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
   script:
     - echo "Deploying VSIX to JFrog..."
-    - ./jf rt u "extensions/vscode/*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
+    - /usr/local/bin/jf rt u "extensions/vscode/*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
   artifacts:
     paths:
       - extensions/vscode/*.vsix
