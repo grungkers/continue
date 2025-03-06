@@ -1,33 +1,33 @@
 stages:
-  - build
+  # - build
   - deploy
  
-build:
-  stage: build
-  parallel:
-    matrix:
-      - OS: ["sitespeedio/node:ubuntu-24-04-nodejs-22.13.0"]
-        PLATFORM: ["linux"]
-        ARCH: ["x64"]
-  image: ${OS}
-  before_script:
-    - node -v
-    - npm -v
-    - export TARGET="${PLATFORM}-${ARCH}"
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - extensions/vscode/node_modules/
-      - gui/node_modules/
-      - core/node_modules/
-  script:
-    - npm ci --prefix extensions/vscode
-    - npm ci --prefix gui
-    - npm ci --prefix core
-    - npm i vectordb --prefix core
-    - cd extensions/vscode && npm run prepackage -- --target $TARGET
-    - npm i -f --prefix extensions/vscode esbuild
-    - npx vsce package --no-dependencies --target $TARGET
+# build:
+#   stage: build
+#   parallel:
+#     matrix:
+#       - OS: ["sitespeedio/node:ubuntu-24-04-nodejs-22.13.0"]
+#         PLATFORM: ["linux"]
+#         ARCH: ["x64"]
+#   image: ${OS}
+#   before_script:
+#     - node -v
+#     - npm -v
+#     - export TARGET="${PLATFORM}-${ARCH}"
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}
+#     paths:
+#       - extensions/vscode/node_modules/
+#       - gui/node_modules/
+#       - core/node_modules/
+#   script:
+#     - npm ci --prefix extensions/vscode
+#     - npm ci --prefix gui
+#     - npm ci --prefix core
+#     - npm i vectordb --prefix core
+#     - cd extensions/vscode && npm run prepackage -- --target $TARGET
+#     - npm i -f --prefix extensions/vscode esbuild
+#     - npx vsce package --no-dependencies --target $TARGET
 
 deploy:
   stage: deploy
@@ -36,10 +36,10 @@ deploy:
     - apk add --no-cache curl bash
     - curl -fL https://install-cli.jfrog.io | sh
     - chmod +x jfrog
-    - ./jfrog config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
+    - ./jf config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
   script:
     - echo "Deploying VSIX to JFrog..."
-    - ./jfrog rt u "extensions/vscode/*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
+    - ./jf rt u "extensions/vscode/*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
   artifacts:
     paths:
       - extensions/vscode/*.vsix
