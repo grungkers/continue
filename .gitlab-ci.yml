@@ -35,7 +35,6 @@ deploy:
   before_script:
     - apk add --no-cache curl bash
     - curl -fL https://install-cli.jfrog.io | sh
-    - chmod +x jfrog
     - ./jf config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
   script:
     - echo "Deploying VSIX to JFrog..."
