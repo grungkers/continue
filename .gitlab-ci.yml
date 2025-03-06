@@ -1,33 +1,33 @@
 stages:
-  # - build
+  - build
   - deploy
  
-# build:
-#   stage: build
-#   parallel:
-#     matrix:
-#       - OS: ["sitespeedio/node:ubuntu-24-04-nodejs-22.13.0"]
-#         PLATFORM: ["linux"]
-#         ARCH: ["x64"]
-#   image: ${OS}
-#   before_script:
-#     - node -v
-#     - npm -v
-#     - export TARGET="${PLATFORM}-${ARCH}"
-#   cache:
-#     key: ${CI_COMMIT_REF_SLUG}
-#     paths:
-#       - extensions/vscode/node_modules/
-#       - gui/node_modules/
-#       - core/node_modules/
-#   script:
-#     - npm ci --prefix extensions/vscode
-#     - npm ci --prefix gui
-#     - npm ci --prefix core
-#     - npm i vectordb --prefix core
-#     - cd extensions/vscode && npm run prepackage -- --target $TARGET
-#     - npm i -f --prefix extensions/vscode esbuild
-#     - npx vsce package --no-dependencies --target $TARGET
+build:
+  stage: build
+  parallel:
+    matrix:
+      - OS: ["sitespeedio/node:ubuntu-24-04-nodejs-22.13.0"]
+        PLATFORM: ["linux"]
+        ARCH: ["x64"]
+  image: ${OS}
+  before_script:
+    - node -v
+    - npm -v
+    - export TARGET="${PLATFORM}-${ARCH}"
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - extensions/vscode/node_modules/
+      - gui/node_modules/
+      - core/node_modules/
+  script:
+    - npm ci --prefix extensions/vscode
+    - npm ci --prefix gui
+    - npm ci --prefix core
+    - npm i vectordb --prefix core
+    - cd extensions/vscode && npm run prepackage -- --target $TARGET
+    - npm i -f --prefix extensions/vscode esbuild
+    - npx vsce package --no-dependencies --target $TARGET
 
 deploy:
   stage: deploy
