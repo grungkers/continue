@@ -28,9 +28,6 @@ build:
     - cd extensions/vscode && npm run prepackage -- --target $TARGET
     - npm i -f --prefix extensions/vscode esbuild
     - npx vsce package --no-dependencies --target $TARGET
-  artifacts:
-    paths:
-      - extensions/vscode/*.vsix
 
 deploy:
   stage: deploy
@@ -40,6 +37,7 @@ deploy:
     - ./jfrog config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
   script:
     - echo "Deploying VSIX to JFrog..."
-    - ./jfrog rt u "*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"
-  only:
-    - main
+    - ./jfrog rt u "extensions/vscode/*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"  
+  artifacts:
+    paths:
+      - extensions/vscode/*.vsix
