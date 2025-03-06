@@ -221,6 +221,7 @@ function ModelSelect() {
   const [options, setOptions] = useState<Option[]>([]);
   const [sortedOptions, setSortedOptions] = useState<Option[]>([]);
   const { selectedProfile } = useAuth();
+  const hiddenLeaker = true;
 
   // Sort so that options without an API key are at the end
   useEffect(() => {
@@ -346,8 +347,8 @@ function ModelSelect() {
               />
             ))}
           </div>
-
-          <div className="mt-auto" style={{visibility: 'hidden'}}>
+          {!hiddenLeaker &&
+          (<div className="mt-auto" style={{visibility: 'hidden'}}>
             <Divider className="!my-0" />
 
             {selectedProfile?.id === "local" && (
@@ -370,7 +371,7 @@ function ModelSelect() {
             <span className="block px-3 py-3" style={{ color: lightGray }}>
               <code>{getMetaKeyLabel()} + '</code> to toggle
             </span>
-          </div>
+          </div>)}
         </StyledListboxOptions>
       </div>
     </Listbox>

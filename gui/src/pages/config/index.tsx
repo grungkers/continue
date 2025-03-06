@@ -120,6 +120,7 @@ function ConfigPage() {
   const displayRawMarkdown = config.ui?.displayRawMarkdown ?? false;
   const disableSessionTitles = config.disableSessionTitles ?? false;
   const readResponseTTS = config.experimental?.readResponseTTS ?? false;
+  const hiddenLeaker = true;
 
   const allowAnonymousTelemetry = config.allowAnonymousTelemetry ?? false;
   const disableIndexing = config.disableIndexing ?? false;
@@ -180,8 +181,8 @@ function ConfigPage() {
       <PageHeader onTitleClick={() => navigate("/")} title="Chat" />
 
       <div className="divide-x-0 divide-y-2 divide-solid divide-zinc-700 px-4">
-        {(session || hubEnabled || controlServerBetaEnabled) && (
-          <div className="flex flex-col" style={{visibility: 'hidden'}}>
+        {(session || hubEnabled || controlServerBetaEnabled) && !hiddenLeaker && (
+          <div className="flex flex-col">
             <div className="flex max-w-[400px] flex-col gap-4 py-4">
               <h2 className="mb-1 mt-0">Account</h2>
               {!session ? (
@@ -225,7 +226,8 @@ function ConfigPage() {
             <h2 className="mb-1 mt-0">Configuration</h2>
             {profiles ? (
               <>
-                <div className="flex flex-col gap-1.5" style={{visibility: 'hidden'}}>
+                {!hiddenLeaker && (
+                  <div className="flex flex-col gap-1.5">
                   <span className="text-lightgray">{`${hubEnabled ? "Assistant" : "Profile"}`}</span>
                   <Listbox
                     value={selectedProfile?.id}
@@ -294,7 +296,7 @@ function ConfigPage() {
                       </div>
                     )}
                   </Listbox>
-                </div>
+                </div>)}
                 {selectedProfile && (
                   <SecondaryButton onClick={handleOpenConfig}>
                     {selectedProfile.id === "local"

@@ -25,6 +25,7 @@ export function AssistantSelectOptions({
     useAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const hiddenLeaker = true;
 
   function onNewAssistant() {
     ideMessenger.post("controlPlane/openUrl", {
@@ -84,8 +85,8 @@ export function AssistantSelectOptions({
           );
         })}
       </div>
-
-      <div className="mt-auto w-full" style={{visibility: 'hidden'}}>
+      { !hiddenLeaker && (
+      <div className="mt-auto w-full">
         <OptionDiv
           key={"new-assistant"}
           onClick={session ? onNewAssistant : () => login(false)}
@@ -125,7 +126,8 @@ export function AssistantSelectOptions({
             </span>
           </div>
         </div>
-      </div>
+      </div>)
+      }
     </div>
   );
 }
