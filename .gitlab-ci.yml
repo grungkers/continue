@@ -34,6 +34,9 @@ build:
 
 deploy:
   stage: deploy
+  needs:
+  - job: build
+    artifacts: true
   before_script:
     - apk update
     - apk add --no-cache ca-certificates
