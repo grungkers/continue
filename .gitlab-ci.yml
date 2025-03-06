@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy
  
 build:
   stage: build
@@ -30,3 +31,15 @@ build:
   artifacts:
     paths:
       - extensions/vscode/*.vsix
+
+deploy:
+  stage: deploy
+  before_script:
+    - curl -fL https://install-cli.jfrog.io | sh
+    - chmod +x jfrog
+    - ./jfrog config add artifactory --url="$JFROG_URL" --user="$JFROG_USER" --password="$JFROG_PASSWORD"
+  script:
+    - echo "Deploying VSIX to JFrog..."
+    - ./jfrog rt u "*.vsix" "$JFROG_URL/tne-registry/continue" --build-name="vsix-build" --build-number="$CI_PIPELINE_ID"
+  only:
+    - main
