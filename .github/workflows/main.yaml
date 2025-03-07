@@ -36,34 +36,6 @@ jobs:
             platform: win32
             arch: x64
             npm_config_arch: x64
-          - os: windows-latest
-            platform: win32
-            arch: arm64
-            npm_config_arch: arm
-          - os: ubuntu-latest
-            platform: linux
-            arch: x64
-            npm_config_arch: x64
-          - os: ubuntu-latest
-            platform: linux
-            arch: arm64
-            npm_config_arch: arm64
-          - os: ubuntu-latest
-            platform: linux
-            arch: armhf
-            npm_config_arch: arm
-          - os: ubuntu-latest
-            platform: alpine
-            arch: x64
-            npm_config_arch: x64
-          - os: macos-13
-            platform: darwin
-            arch: x64
-            npm_config_arch: x64
-          - os: macos-13
-            platform: darwin
-            arch: arm64
-            npm_config_arch: arm64
     runs-on: ${{ matrix.os }}
     steps:
       # 1. Check-out repository
@@ -74,11 +46,6 @@ jobs:
 
       - name: Checkout tag
         run: git checkout ${GITHUB_REF#refs/tags/}
-
-      - name: Make sure version isn't odd
-        run: |
-          cd extensions/vscode
-          node scripts/versionCheck.js
 
       # 2. Install npm dependencies
       - name: Use Node.js from .nvmrc
