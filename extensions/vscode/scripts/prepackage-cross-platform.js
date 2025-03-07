@@ -68,7 +68,7 @@ const exe = os === "win32" ? ".exe" : "";
 console.log("[info] Using target: ", target);
 
 function ghAction() {
-  return !!process.env.GITHUB_ACTIONS;
+  return true;
 }
 
 function isArm() {
